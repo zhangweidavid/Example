@@ -8,13 +8,13 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>demo</name>
+    <name>Example</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-parent</artifactId>
-        <version>1.5.8.RELEASE</version>
+        <version>2.0.0.BUILD-SNAPSHOT</version>
         <relativePath/>
     </parent>
 
@@ -22,6 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <checkstyle.skip>true</checkstyle.skip>
     </properties>
 
     <build>
