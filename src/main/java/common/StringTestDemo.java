@@ -1,6 +1,6 @@
 package common;
 
-import com.sun.deploy.util.StringUtils;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +48,6 @@ public class StringTestDemo {
         System.out.println(System.currentTimeMillis() - start);
 
         start = System.currentTimeMillis();
-        for(int i=0;i<10000;i++)
-        StringUtils.splitString(orgStr,";");
 
         System.out.println(System.currentTimeMillis() - start);
     }

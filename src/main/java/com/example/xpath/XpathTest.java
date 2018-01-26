@@ -1,29 +1,39 @@
 package com.example.xpath;
 
 
+import org.apache.commons.io.IOUtils;
+import org.apache.xalan.xsltc.compiler.util.NodeType;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.*;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+import java.io.File;
+import java.io.InputStream;
+
 public class XpathTest {
 
-    public static void main(String[] args) throws Exception  {
-        DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
+    public static void main(String[] args) throws Exception {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(false);
-        DocumentBuilder builder=factory.newDocumentBuilder();
-        Document doc=builder.parse("C:\\Users\\wei.zw\\IdeaProjects\\Example\\src\\main\\java\\com\\example\\xpath\\book.xml");
-        System.out.println(doc.getChildNodes().getLength());
-        XPathFactory xPathFactory=XPathFactory.newInstance();
-        XPath xPath=xPathFactory.newXPath();
-        XPathExpression exper=xPath.compile("//name/text()");
-        Object result=exper.evaluate(doc,XPathConstants.NODESET);
-        NodeList nodeList=(NodeList)result;
-        for (int i=0;i<nodeList.getLength();i++) {
-            System.out.println(nodeList.item(i).getNodeValue());
-        }
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        InputStream inputStream = new XpathTest().getClass().getClassLoader().getResourceAsStream("book.xml");
+        Document doc = builder.parse(inputStream);
+        XPathFactory xPathFactory = XPathFactory.newInstance();
+        XPath xPath = xPathFactory.newXPath();
 
+        Object bookList = xPath.evaluate("/bookstore/book", doc, XPathConstants.NODESET);
+        System.out.println("book length:" + ((NodeList) bookList).getLength());
+        //获取根结点bookstore
+        Object result = xPath.evaluate("/bookstore/book[1]/price", doc, XPathConstants.STRING);
+
+        System.out.println("/bookstore/book[1]/price: " + result);
+
+        Object langs = xPath.evaluate("//title[@lang]", doc, XPathConstants.NODESET);
+        System.out.println(langs);
     }
 }
