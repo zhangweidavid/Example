@@ -1,39 +1,41 @@
 package com.example.xpath;
 
 
-import org.apache.commons.io.IOUtils;
-import org.apache.xalan.xsltc.compiler.util.NodeType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-import java.io.File;
-import java.io.InputStream;
 
 public class XpathTest {
 
     public static void main(String[] args) throws Exception {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(false);
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        InputStream inputStream = new XpathTest().getClass().getClassLoader().getResourceAsStream("book.xml");
-        Document doc = builder.parse(inputStream);
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document document = documentBuilder.parse(new XpathTest().getClass().getResourceAsStream("/book.xml"));
         XPathFactory xPathFactory = XPathFactory.newInstance();
         XPath xPath = xPathFactory.newXPath();
+        //获取第一本书的价格
+        String price = (String) xPath.evaluate("/bookstore/technology/book[1]/price", document, XPathConstants.STRING);
+        System.out.println(price);
+        //获取最后一本书的价格
+        System.out.println((String) xPath.evaluate("/bookstore/technology/book[last()]/price", document, XPathConstants.STRING));
+        //获取价格大于35的书
+        System.out.println(xPath.evaluate("//book[price>50.00]/title", document, XPathConstants.STRING));
+        //获取作者为zhangsan的书的价格
+        System.out.println(xPath.evaluate("//book[@author='zhangsan']/price", document, XPathConstants.STRING));
 
-        Object bookList = xPath.evaluate("/bookstore/book", doc, XPathConstants.NODESET);
-        System.out.println("book length:" + ((NodeList) bookList).getLength());
-        //获取根结点bookstore
-        Object result = xPath.evaluate("/bookstore/book[1]/price", doc, XPathConstants.STRING);
+        //获取科技书籍
+        Node technology = (Node) xPath.evaluate("/bookstore/technology", document, XPathConstants.NODE);
+        //获取当前节点
+        System.out.println(xPath.evaluate(".", technology, XPathConstants.NODE));
+        //获取父节点
+        System.out.println(xPath.evaluate("..", technology, XPathConstants.NODE));
 
-        System.out.println("/bookstore/book[1]/price: " + result);
-
-        Object langs = xPath.evaluate("//title[@lang]", doc, XPathConstants.NODESET);
-        System.out.println(langs);
+        Node node = (Node) xPath.evaluate("/bookstore/technology/self::node()", document, XPathConstants.NODE);
+        System.out.println(node);
     }
 }
