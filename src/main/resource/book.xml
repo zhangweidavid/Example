@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bookstore>
-    <book>
-        <title lang="eng">Harry Potter</title>
-        <price>29.99</price>
-    </book>
-    <book>
-        <title lang="eng">Learning XML</title>
-        <price>39.95</price>
-    </book>
+    <technology desc="测试" version="1.0">
+        <book author="zhangsan">
+            <title lang="eng">Harry Potter</title>
+            <price>29.99</price>
+        </book>
+        <book author="lisi">
+            <title lang="eng">Learning XML</title>
+            <price>39.95</price>
+        </book>
+    </technology>
+    <history desc="测试" version="1.0">
+        <book author="simaqian">
+            <title>史记</title>
+            <price>60.00</price>
+        </book>
+    </history>
 </bookstore>
