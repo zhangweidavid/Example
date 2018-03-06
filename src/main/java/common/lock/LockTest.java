@@ -1,4 +1,4 @@
-package common;
+package common.lock;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
