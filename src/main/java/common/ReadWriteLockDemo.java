@@ -1,5 +1,6 @@
 package common;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -9,7 +10,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 public class ReadWriteLockDemo {
 
-    private static Lock lock = new ReentrantLock();
+    private static Lock lock = new ReentrantLock(false);
 
     private Object value = new Object();
 
@@ -41,25 +42,29 @@ public class ReadWriteLockDemo {
     public Object handleRead2() throws InterruptedException {
         try {
             readLock.lock();
-            System.out.println(readWriteLock.getReadHoldCount());
+            System.out.println("read");
             Thread.sleep(1);
             return value;
         } finally {
+            System.out.println("release read");
             readLock.unlock();
         }
     }
 
     public void handleWrite2(int index) throws InterruptedException {
         try {
+            System.out.println("rund write  "+Thread.currentThread().getId());
             writeLock.lock();
-            Thread.sleep(1);
+            System.out.println("rund write  "+Thread.currentThread().getId()+", get lock ");
+            System.out.println("queueLength:"+readWriteLock.getQueueLength());
+            Thread.sleep(100);
             value = index;
         } finally {
             writeLock.unlock();
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         ReadWriteLockDemo demo = new ReadWriteLockDemo();
 
@@ -68,7 +73,7 @@ public class ReadWriteLockDemo {
             new Thread(() -> {
                 try {
                     //final int index=i;
-                    demo.handleWrite2(0);
+                    demo.handleRead2();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -82,8 +87,26 @@ public class ReadWriteLockDemo {
                     e.printStackTrace();
                 }
             }).start();
-        }
 
+            new Thread(() -> {
+                try {
+                    //final int index=i;
+                    demo.handleRead2();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+
+            new Thread(() -> {
+                try {
+                    //final int index=i;
+                    demo.handleWrite2(0);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+        TimeUnit.MINUTES.sleep(10);
         System.out.println();
     }
 }

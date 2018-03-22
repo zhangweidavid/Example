@@ -18,5 +18,7 @@ public class LogUtil {
 
 	public static void log(String message) {
 		System.out.println(new Date() + " | " + Thread.currentThread().getName() + " | " + message);
+
+		System.out.println(1 << 16);
 	}
 }

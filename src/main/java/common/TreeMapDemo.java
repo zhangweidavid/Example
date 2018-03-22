@@ -1,5 +1,8 @@
 package common;
 
+import java.math.BigDecimal;
+import java.util.TreeMap;
+
 /**
  * Created by wei.zw on 2017/6/8.
  */
@@ -55,6 +58,13 @@ public class TreeMapDemo {
     }
 
     public static void main(String[] args){
-        //TreeMap
+
+        TreeMap<BigDecimal,String> treeMap=new TreeMap<>();
+        treeMap.put(BigDecimal.valueOf(0.1),"10");
+        treeMap.put(BigDecimal.valueOf(10),"10");
+        treeMap.put(BigDecimal.valueOf(100),"100");
+        System.out.println(treeMap.floorEntry(BigDecimal.valueOf(10)));
+        System.out.println(treeMap.floorEntry(BigDecimal.valueOf(1)));
+        System.out.print(treeMap.firstEntry());
     }
 }
