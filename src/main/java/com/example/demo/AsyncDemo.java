@@ -6,14 +6,13 @@
 
 package com.example.demo;
 
-import java.util.concurrent.TimeUnit;
-
-import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscriber;
-
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.parallel.ParallelFlowable;
+import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscriber;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Desc:TODO
