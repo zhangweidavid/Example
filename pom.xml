@@ -67,9 +67,9 @@
             <version>2.0.6</version>
         </dependency>
         <dependency>
-            <groupId>biz.paluch.redis</groupId>
-            <artifactId>lettuce</artifactId>
-            <version>4.3.2.Final</version>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+            <version>5.0.4.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>io.reactivex</groupId>
