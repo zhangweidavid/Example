@@ -1,6 +1,17 @@
 package demo;
 
 import demo.flux.EchoHandler;
+import demo.redis.Sharded;
+import io.lettuce.core.ClientOptions;
+import io.lettuce.core.RedisClient;
+import io.lettuce.core.RedisURI;
+import io.lettuce.core.SocketOptions;
+import io.lettuce.core.codec.Utf8StringCodec;
+import io.lettuce.core.internal.HostAndPort;
+import io.lettuce.core.masterslave.MasterSlave;
+import io.lettuce.core.masterslave.StatefulRedisMasterSlaveConnection;
+import io.lettuce.core.resource.ClientResources;
+import io.lettuce.core.resource.DefaultClientResources;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
@@ -16,6 +27,10 @@ import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
@@ -109,6 +124,17 @@ public class DemoApplication {
     Binding bindingExchangeC(Queue CMessage, FanoutExchange fanoutExchange) {
         return BindingBuilder.bind(CMessage).to(fanoutExchange);
     }
+
+//    @Bean(destroyMethod = "close")
+//    Sharded<StatefulRedisMasterSlaveConnection,String> sharded(RedisClient redisClient) {
+//
+//        Set<HostAndPort> hostAndPorts=new HashSet<>();
+//        hostAndPorts.add(HostAndPort.parse("10.165.126.195:26009"));
+//        hostAndPorts.add(HostAndPort.parse("10.165.126.195:26009"));
+//
+//
+//        return new Sharded<>(Arrays.asList("test6009","test6008","test6007"),redisClient,"abcd1234",hostAndPorts, new Utf8StringCodec());
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
