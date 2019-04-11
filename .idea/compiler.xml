@@ -6,11 +6,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Example" />
+        <module name="rabbit-example" />
+        <module name="web-example" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
       <module name="Example" target="1.8" />
+      <module name="rabbit" target="1.8" />
+      <module name="rabbit-example" target="1.8" />
+      <module name="web-example" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="rabbit" options="-parameters" />
+    </option>
   </component>
 </project>
