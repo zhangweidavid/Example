@@ -175,5 +175,6 @@
     <modules>
         <module>rabbit-example</module>
         <module>web-example</module>
+        <module>core-java</module>
     </modules>
 </project>

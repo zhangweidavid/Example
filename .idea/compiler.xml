@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="core-java" />
         <module name="rabbit-example" />
         <module name="web-example" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
+      <module name="core-java" target="1.5" />
       <module name="Example" target="1.8" />
       <module name="rabbit" target="1.8" />
       <module name="rabbit-example" target="1.8" />
